@@ -8,6 +8,13 @@
 // service worker, and the Workbox build step will be skipped.
 
 // 버전을 변경하여 서비스 워커 업데이트
+
+import { clientsClaim } from "workbox-core";
+import { ExpirationPlugin } from "workbox-expiration";
+import { precacheAndRoute, createHandlerBoundToURL } from "workbox-precaching";
+import { registerRoute } from "workbox-routing";
+import { StaleWhileRevalidate } from "workbox-strategies";
+
 const CACHE_VERSION = "v1";
 const CACHE_NAME = `${CACHE_VERSION}:static`;
 
@@ -18,12 +25,6 @@ const FILES_TO_CACHE = [
   "/offline.html", // 오프라인 페이지
   // 필요한 리소스들을 추가할 수 있습니다.
 ];
-
-import { clientsClaim } from "workbox-core";
-import { ExpirationPlugin } from "workbox-expiration";
-import { precacheAndRoute, createHandlerBoundToURL } from "workbox-precaching";
-import { registerRoute } from "workbox-routing";
-import { StaleWhileRevalidate } from "workbox-strategies";
 
 clientsClaim();
 
